@@ -1,7 +1,4 @@
 #include "wobjparser.h"
-#include <iomanip>
-
-using namespace std;
 
 /*******************************************************************
  * Constructor
@@ -40,6 +37,11 @@ int WobjParser::parse(){
       char *pch;
       pch = strtok(in, " v");
 
+      if(!pch){
+        // Found a bad vertex string
+        return 1;
+      }
+
       for(int i = 0; i < 3; ++i){
         v_vec.push_back(atof(pch));
         pch = strtok (NULL, " ");
@@ -54,15 +56,23 @@ int WobjParser::parse(){
       char *pch;
       pch = strtok(in, " f");
 
+      if(!pch){
+        // Found a bad face string
+        return 1;
+      }
+
       int fcounter = 0;
 
       while(pch){
         if(fcounter < 3){
           f_vec.push_back(atof(pch));
-        } else {
+        } else if(fcounter == 3){
           tf_vec.push_back(atof(pch));
           tf_vec.push_back(f_vec[2]);
           tf_vec.push_back(f_vec[1]);
+        }else{
+          //Not a triangle or quad
+          return 0;
         }
 
         pch = strtok (NULL, " ");
@@ -75,38 +85,6 @@ int WobjParser::parse(){
       }
     }
   }
-
-  return 0;
-}
-
-
-int main(){
-  const char * file = "cube.obj";
-
-  WobjParser *parser = new WobjParser(file);
-  int result = parser->parse();
-
-  if(result > 0){
-    cout << "Could not load file: " << file << endl;
-  }
-
-  cout << "Found vertices..." << endl;
-  for(unsigned int i = 0; i < parser->vertices.size(); i++){
-    for(int j = 0; j < 3; ++j){
-      cout << setprecision(10) << parser->vertices[i][j] << " ";
-    }
-    cout << endl;
-  }
-
-  cout << "Found faces..." << endl;
-  for(unsigned int i = 0; i < parser->faces.size(); i++){
-    for(int j = 0; j < 3; ++j){
-      cout << setprecision(10) << parser->faces[i][j] << " ";
-    }
-    cout << endl;
-  }
-
-  delete(parser);
 
   return 0;
 }

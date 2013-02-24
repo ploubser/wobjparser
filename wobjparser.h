@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <cstring>
+#include <cstdlib>
 
 class WobjParser{
   public :
