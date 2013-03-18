@@ -17,7 +17,7 @@ WobjParser::~WobjParser(){
 /*******************************************************************
  * Parse obj file
  * ****************************************************************/
-int WobjParser::parse(){
+char WobjParser::parse(){
     if (!wobj_file.is_open()){
         return FILE_READ_ERROR;
     }
