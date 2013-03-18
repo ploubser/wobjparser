@@ -7,10 +7,11 @@ int main(){
     const char * file = "test_object.obj";
 
     WobjParser *parser = new WobjParser(file);
-    int result = parser->parse();
+    bool result = parser->parse();
 
-    if (result > 0){
+    if (!result){
         cout << "Could not load file: " << file << endl;
+        return 1;
     }
 
     cout << "Found vertices..." << endl;

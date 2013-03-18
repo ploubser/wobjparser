@@ -16,10 +16,12 @@ WobjParser::~WobjParser(){
 
 /*******************************************************************
  * Parse obj file
+ *
+ * Returns bool false on failure
  * ****************************************************************/
-char WobjParser::parse(){
+bool WobjParser::parse(){
     if (!wobj_file.is_open()){
-        return FILE_READ_ERROR;
+        return true;
     }
 
     char in[256];
@@ -34,7 +36,7 @@ char WobjParser::parse(){
             pch = strtok(in, " v");
 
             if (!pch){
-                return BAD_VERTEX_STRING_ERROR;
+                return false;
             }
 
             for (int i = 0; i < 3; ++i){
@@ -50,7 +52,7 @@ char WobjParser::parse(){
             pch = strtok(in, " f");
 
             if (!pch){
-                return BAD_FACE_STRING_ERROR;
+                return false;
             }
 
             int fcounter = 0;
@@ -66,7 +68,7 @@ char WobjParser::parse(){
 
                 } else{
                     //Not a triangle or quad
-                    return BAD_SHAPE_ERROR;
+                    return false;
                 }
 
                 pch = strtok(NULL, " ");
@@ -75,5 +77,5 @@ char WobjParser::parse(){
         }
     }
 
-    return PARSE_SUCCESS;
+    return true;
 }

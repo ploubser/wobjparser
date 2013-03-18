@@ -17,7 +17,7 @@ class WobjParser{
     public :
         WobjParser(const char *);
         ~WobjParser();
-        int parse();
+        bool parse();
 
         std::vector<std::vector<float> > vertices;
         std::vector<unsigned int> faces;
