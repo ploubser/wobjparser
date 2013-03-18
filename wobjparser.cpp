@@ -19,7 +19,7 @@ WobjParser::~WobjParser(){
  * ****************************************************************/
 int WobjParser::parse(){
     if (!wobj_file.is_open()){
-        return 1;
+        return FILE_READ_ERROR;
     }
 
     char in[256];

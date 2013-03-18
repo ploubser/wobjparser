@@ -7,10 +7,11 @@
 #include <fstream>
 #include <vector>
 
-#define PARSE_SUCCESS 0
-#define BAD_VERTEX_STRING_ERROR 1
-#define BAD_FACE_STRING_ERROR 2
-#define BAD_SHAPE_ERROR 3
+const char PARSE_SUCCESS = 0;
+const char FILE_READ_ERROR = 1;
+const char BAD_VERTEX_STRING_ERROR = 2;
+const char BAD_FACE_STRING_ERROR = 3;
+const char BAD_SHAPE_ERROR = 4;
 
 class WobjParser{
     public :
